@@ -1,0 +1,21 @@
+node_modules/
+.env
+data/user_memory.db
+data/ai_daily_state.json
+data/cron_state.json
+logs/
+*.log
+.DS_Store
+
+# 开源发布排除
+data/user_memory.db
+# 开源发布排除
+data/sync_state.json
+# 开源发布排除
+data/ai_daily_state.json
+# 开源发布排除
+config/engine_config.json
+# 开源发布排除
+.env*
+# 开源发布排除
+node_modules/.release-backup/

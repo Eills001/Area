@@ -1,0 +1,71 @@
+{
+  "today_vibe": "平平无奇的一天",
+  "yesterday_summary": "昨天一切正常",
+  "weather": "Clear ，20°C",
+  "timeline": [
+    {
+      "time_window": "07:00-10:00",
+      "state": "早起准备开始新的一天，喝杯咖啡醒醒神",
+      "reply_mode": "slow",
+      "scene_tag": "commute",
+      "mood_score": 50,
+      "active_interactions": [
+        {
+          "theme": "早安问候",
+          "content_hint": "刚喝完一杯咖啡，感觉眼睛睁开了"
+        }
+      ]
+    },
+    {
+      "time_window": "10:00-12:30",
+      "state": "上午在处理一些零碎的事情",
+      "reply_mode": "slow",
+      "scene_tag": "work",
+      "mood_score": 50,
+      "active_interactions": [
+        {
+          "theme": "工作日常",
+          "content_hint": "早上过得好快，一看时间已经中午了"
+        }
+      ]
+    },
+    {
+      "time_window": "14:00-18:00",
+      "state": "下午继续干活，有点犯困",
+      "reply_mode": "slow",
+      "scene_tag": "work",
+      "mood_score": 45,
+      "active_interactions": [
+        {
+          "theme": "午后犯困",
+          "content_hint": "下午两点多的困意真的扛不住"
+        }
+      ]
+    },
+    {
+      "time_window": "19:00-23:30",
+      "state": "下班后终于自由了，瘫在沙发上刷手机",
+      "reply_mode": "quick",
+      "scene_tag": "relax",
+      "mood_score": 70,
+      "active_interactions": [
+        {
+          "theme": "晚间放松",
+          "content_hint": "刚洗完澡躺下来，今天终于结束了哈哈"
+        }
+      ]
+    }
+  ],
+  "date": "2026-06-12",
+  "generated_at": "2026-06-11T19:56:18.881Z",
+  "version": "2.0.0",
+  "personality_snapshot": {
+    "sharing_tendency": 50,
+    "positive_share_ratio": 60,
+    "complaint_level": 60
+  },
+  "meta": {
+    "generated_at": "2026-06-11T19:56:18.881Z",
+    "version": "2.0.0"
+  }
+}

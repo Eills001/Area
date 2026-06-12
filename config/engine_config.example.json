@@ -1,0 +1,74 @@
+{
+  "llm": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-pro",
+    "baseUrl": "https://api.deepseek.com/v1",
+    "apiKeyEnv": "YOUR_API_KEY_ENV_VAR",
+    "temperature_proactive": 0.9,
+    "temperature_task": 0.3,
+    "max_tokens": 1024,
+    "timeout_ms": 120000,
+    "retry_count": 3,
+    "retry_delay_ms": 1000
+  },
+  "proactive": {
+    "checkin_interval_hours": 4,
+    "anomaly_window_days": 2,
+    "anomaly_triggers": {
+      "consecutive_missed_wakeup": 2,
+      "consecutive_skipped_review": 2,
+      "insomnia_flag": true,
+      "mood_drop_keywords": [
+        "累",
+        "烦",
+        "难受",
+        "不想",
+        "算了"
+      ]
+    },
+    "weekend_rules": {
+      "saturday": "silent",
+      "sunday": "light_touch",
+      "sunday_topics": [
+        "周末心情",
+        "下周计划",
+        "轻松闲聊"
+      ]
+    }
+  },
+  "memory": {
+    "short_term_days": 7,
+    "long_term_threshold": 3,
+    "importance_decay_rate": 0.85,
+    "max_recall_items": 3
+  },
+  "emotion_fuse": {
+    "enabled": true,
+    "negative_threshold": 0.7,
+    "cooldown_minutes": 30,
+    "fuse_actions": [
+      "reduce_frequency",
+      "switch_to_listening",
+      "offer_support_only"
+    ]
+  },
+  "content_curation": {
+    "ted_min_duration": 420,
+    "ted_max_duration": 1200,
+    "ted_preferred_tags": [
+      "inspiration",
+      "personal growth",
+      "science",
+      "creativity"
+    ],
+    "fallback_use_cached": true
+  },
+  "personality": {
+    "evolution_speed": 1,
+    "enable_small_temper": true,
+    "small_temper_probability": 0.05,
+    "daily_max_adjustment": 5,
+    "time_decay_rate": 0.1,
+    "regression_gravity_threshold": 30
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "hermes-companion",
+  "version": "1.0.0",
+  "description": "AREA 主动陪伴引擎 — 自运转剧本 + 主动触达 + 记忆系统 + 情绪熔断",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "cron": "^3.1.0",
+    "dayjs": "^1.11.0",
+    "dotenv": "^16.4.0",
+    "node-fetch": "^3.3.0",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0"
+  },
+  "keywords": ["ai-companion", "hermes", "proactive", "persona"],
+  "author": "AREA (艾瑞安) + 陈泽营",
+  "license": "MIT"
+}

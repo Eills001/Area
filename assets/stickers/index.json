@@ -1,0 +1,59 @@
+{
+  "morning": [
+    "cherry_blossom.png",
+    "coffee.png",
+    "sun.png",
+    "sunflower.png",
+    "sunrise.png"
+  ],
+  "night": [
+    "crescent_moon.png",
+    "glowing_star.png",
+    "night.png",
+    "sleeping.png",
+    "sparkles.png"
+  ],
+  "warm": [
+    "heart.png",
+    "heart_exclamation.png",
+    "hug.png",
+    "smile.png",
+    "sparkling_heart.png",
+    "two_hearts.png"
+  ],
+  "happy": [
+    "clap.png",
+    "joy.png",
+    "party.png",
+    "raised_hands.png",
+    "tada.png"
+  ],
+  "comfort": [
+    "herb.png",
+    "hug_face.png",
+    "pleading.png",
+    "rainbow.png",
+    "tulip.png"
+  ],
+  "tease": [
+    "see_no_evil.png",
+    "smirk.png",
+    "speak_no_evil.png",
+    "sweat_smile.png",
+    "wink.png"
+  ],
+  "encourage": [
+    "fire.png",
+    "muscle.png",
+    "rocket.png",
+    "sparkler.png",
+    "star_struck.png"
+  ],
+  "fun": [
+    "check.png",
+    "folded_hands.png",
+    "ok_hand.png",
+    "smile_cat.png",
+    "wave.png"
+  ]
+}
