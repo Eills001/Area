@@ -85,7 +85,7 @@
 
 ## 🏗️ 架构
 
-> 📐 [查看完整架构详图 →](docs/architecture.html)
+> 📐 [查看完整架构详图 →](https://www.areaai.cn/engine-architecture.html)
 
 ```
 微信用户 ←→ Hermes Agent ←→ companion-sync.js (同步桥)
