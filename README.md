@@ -85,43 +85,23 @@
 
 ## 🏗️ 架构
 
+> 📐 [查看完整架构详图 →](docs/architecture.html)
+
 ```
-index.js                         ← 唯一入口
-│
-├── src/core/script_engine/      📜 每日剧本生成（LLM）
-│   ├── generator.js                  人格 → 4时段剧本
-│   ├── parser.js                     解析 + 状态管理
-│   └── coherence_checker.js          连贯性验证
-│
-├── src/core/personality/        🧬 13维人格演化
-│   ├── evolution_engine.js           加权演化 + 回归引力
-│   ├── feedback_processor.js         5级反馈分类
-│   ├── slider_manager.js             每日冷却 + 每周巩固
-│   └── diary_generator.js            月度成长日记
-│
-├── src/core/emoji/              😊 表情系统 ★ v3.2
-│   ├── palette.js                    16类 / 140 emoji
-│   ├── selector.js                   人格加权选择
-│   ├── sticker_manager.js            41张贴纸图库
-│   └── evolution.js                  emoji偏好演化
-│
-├── src/core/memory/             🌊 记忆涟漪
-│   ├── extractor.js                  信息提取
-│   ├── ripples.js                    涟漪衰减
-│   └── manager.js                    融合编排
-│
-├── src/core/emotion_fuse/       🛡️ 4级情绪熔断
-│   ├── rule_engine.js                规则引擎
-│   ├── fuse_executor.js              熔断执行
-│   └── alert_logger.js               告警日志
-│
-├── src/core/proactive/          🎯 触发器 + 冷却队列
-│   ├── evaluate_trigger.js           LLM 评估
-│   ├── scan_and_deliver.js           扫描投递
-│   └── index.js                      发送 + 风控
-│
-└── src/utils/                   🔧 llm · db · event · time
+微信用户 ←→ Hermes Agent ←→ companion-sync.js (同步桥)
+                                  ↓
+┌───────────────── index.js (引擎核心) ─────────────────┐
+│  🎬 剧本引擎  🧬 人格演化  ⚡ 情绪熔断  💬 主动触发  🎭 表情系统  │
+│  🌊 记忆涟漪                                              │
+│  🔧 工具层 (llm · db · event · time)                      │
+└──────────────────────────────────────────────────────┘
+                                  ↓
+                          💾 数据层 (SQLite + JSON)
+                                  ↓
+                      🚀 hermes send CLI → 微信
 ```
+
+**6 层架构：** 外部 → 同步桥 → 引擎核心(6大模块) → 数据层 → 定时线 → 投放
 
 ---
 
@@ -229,7 +209,7 @@ node scripts/sanitize.js --restore
 
 ## 📄 License
 
-MIT · Built with ❤️ by AREA & 陈泽营
+MIT · Built with ❤️ by AREA
 
 ---
 
