@@ -85,23 +85,77 @@
 
 ## 🏗️ 架构
 
-> 📐 [查看完整架构详图 →](https://www.areaai.cn/engine-architecture.html)
+```mermaid
+flowchart TB
+    subgraph EXTERNAL["▶ 外部入口"]
+        WX["微信用户<br/>陈泽营 · WeChat"]
+        HA["Hermes Agent<br/>DeepSeek LLM 对话"]
+    end
 
-```
-微信用户 ←→ Hermes Agent ←→ companion-sync.js (同步桥)
-                                  ↓
-┌───────────────── index.js (引擎核心) ─────────────────┐
-│  🎬 剧本引擎  🧬 人格演化  ⚡ 情绪熔断  💬 主动触发  🎭 表情系统  │
-│  🌊 记忆涟漪                                              │
-│  🔧 工具层 (llm · db · event · time)                      │
-└──────────────────────────────────────────────────────┘
-                                  ↓
-                          💾 数据层 (SQLite + JSON)
-                                  ↓
-                      🚀 hermes send CLI → 微信
+    WX <--"消息 ↔ 回复"--> HA
+
+    subgraph SYNC["▶ 同步桥"]
+        CS["companion-sync.js<br/>每次 Agent 回复后自动执行<br/>6步流水线"]
+    end
+
+    HA --> CS
+
+    subgraph CORE["▶ 引擎核心 (index.js)"]
+        direction TB
+        
+        subgraph MODS["6 大模块"]
+            SE["🎬 剧本引擎 v2.0<br/>──<br/>generator.js · dailyBootstrap()<br/>parser.js · ScriptParser<br/>coherence_checker.js<br/><br/>每日 03:55 LLM 生成"]
+            PE["🧬 13维人格演化<br/>──<br/>evolution_engine.js<br/>加权演化+回归引力<br/>feedback_processor.js<br/>5级反馈分类<br/>slider/diary/snapshot<br/><br/>每5条消息触发"]
+            EF["⚡ 4级情绪熔断<br/>──<br/>emotion_scorer.js<br/>零token 情绪打分<br/>fuse_executor.js<br/>行为阻断+语气降级<br/>rule_engine · behavior_rules<br/>alert_logger<br/><br/>L0正常→L3强制"]
+            PR["💬 主动触发器<br/>──<br/>evaluate_trigger.js<br/>LLM 评估对话节奏<br/>quickGuardCheck()<br/>零token 静默拦截<br/>scan_and_deliver.js<br/>8-22点 每小时扫描<br/><br/>冷却队列互斥"]
+            EM["🎭 表情系统 ★v3.2<br/>──<br/>palette.js · 16类/140<br/>selector.js · 人格加权<br/>sticker_manager.js<br/>8类/41张 OpenMoji<br/>usage_tracker · evolution"]
+        end
+
+        subgraph MEM["🌊 记忆涟漪 (memory/)"]
+            direction LR
+            ME["extractor.js<br/>LLM 提取记忆"]
+            MC["collector.js<br/>无感套话采集"]
+            MV["validator.js<br/>去重+验证"]
+            MR["ripples.js<br/>关联衰减<br/>触发召回"]
+            MS["shared_events<br/>+ manager"]
+        end
+
+        subgraph UTIL["🔧 工具层 (utils/)"]
+            direction LR
+            LLM["llm.js<br/>LLMClient<br/>DeepSeek API"]
+            DB["db.js<br/>better-sqlite3<br/>20+ 方法"]
+            EV["event.js<br/>EventEmitter"]
+            TM["time.js<br/>now · today<br/>isWeekend"]
+        end
+    end
+
+    CS --> MODS
+    MODS --> MEM
+    MODS --> UTIL
+
+    subgraph DATA["▶ 数据层"]
+        direction LR
+        D1["user_memory.db<br/>10 张表<br/>人格 · emoji · 熔断<br/>记忆 · 日志"]
+        D2["ai_daily_state.json<br/>sync_state.json<br/>persona.json<br/>engine_config.json"]
+    end
+
+    CORE --> DATA
+
+    subgraph CRON["▶ 定时线 (独立于对话流)"]
+        direction LR
+        C1["每日 03:55<br/>dailyBootstrap()<br/>LLM 剧本生成"]
+        C2["8-22点 每小时<br/>scan_and_deliver.js<br/>no_agent 脚本"]
+    end
+
+    subgraph DELIVER["▶ 投放"]
+        DV["🚀 hermes send CLI<br/>冷却队列到期<br/>→ Gateway weixin.py<br/>→ 微信推送"]
+    end
+
+    DATA --> DELIVER
+    DELIVER -.->|主动消息闭环| WX
 ```
 
-**6 层架构：** 外部 → 同步桥 → 引擎核心(6大模块) → 数据层 → 定时线 → 投放
+
 
 ---
 
